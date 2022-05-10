@@ -10,9 +10,12 @@
   },
   "license": "MIT",
   "icon": "assets/antiresourcereload/icon.png",
-  "environment": "client",
+  "environment": "*",
   "mixins": ["antiresourcereload.mixins.json"],
   "depends": {
     "minecraft": "1.16.1"
+  },
+  "breaks": {
+    "speedrunigt": "<10.0"
   }
 }

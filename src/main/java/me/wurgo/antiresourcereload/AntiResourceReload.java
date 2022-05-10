@@ -15,7 +15,6 @@ public class AntiResourceReload {
     public static Logger LOGGER = LogManager.getLogger(LOGGER_NAME);
 
     public static CompletableFuture<ServerResourceManager> manager;
-    public static DataPackSettings dataPacks;
 
     public static void log(String message) {
         LOGGER.info(message);
