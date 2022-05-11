@@ -4,7 +4,8 @@
   "package": "me.wurgo.antiresourcereload.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "ServerResourceManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
