@@ -7,9 +7,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerResourceManager.class)
-public class ServerResourceManagerMixin {
+public abstract class ServerResourceManagerMixin {
     @Inject(method = "close", at = @At("HEAD"), cancellable = true)
-    private void keepOpened(CallbackInfo ci){
+    private void keepOpened(CallbackInfo ci) {
         ci.cancel();
     }
 }
