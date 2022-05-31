@@ -12,6 +12,9 @@
   "icon": "assets/antiresourcereload/icon.png",
   "environment": "*",
   "mixins": ["antiresourcereload.mixins.json"],
+  "entrypoints": {
+    "main": ["me.wurgo.antiresourcereload.AntiResourceReload"]
+  },
   "depends": {
     "minecraft": "1.16.1"
   },
