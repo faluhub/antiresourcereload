@@ -21,14 +21,19 @@ public abstract class MinecraftClientMixin {
 
     @Redirect(method = "method_29604", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ServerResourceManager;reload(Ljava/util/List;Lnet/minecraft/server/command/CommandManager$RegistrationEnvironment;ILjava/util/concurrent/Executor;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"))
     private CompletableFuture<ServerResourceManager> cachedReload(List<ResourcePack> dataPacks, CommandManager.RegistrationEnvironment registrationEnvironment, int i, Executor executor, Executor executor2) {
-        if (this.managerProvider == null) { LOGGER.info("Cached resources unavailable, reloading."); }
+        if (this.managerProvider == null) { LOGGER.info("Cached resources unavailable, reloading & caching."); }
         else if (dataPacks.size() != 1) { LOGGER.info("Using data-packs, reloading."); }
         else {
             LOGGER.info("Using cached server resources.");
             return this.managerProvider;
         }
 
-        this.managerProvider = ServerResourceManager.reload(dataPacks, registrationEnvironment, i, executor, executor2);
-        return this.managerProvider;
+        CompletableFuture<ServerResourceManager> reloaded = ServerResourceManager.reload(dataPacks, registrationEnvironment, i, executor, executor2);
+        
+        if (dataPacks.size() == 1) {
+            this.managerProvider = reloaded;
+        }
+
+        return reloaded;
     }
 }
