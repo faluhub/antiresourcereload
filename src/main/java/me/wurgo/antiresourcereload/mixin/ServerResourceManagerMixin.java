@@ -9,5 +9,5 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(ServerResourceManager.class)
 public abstract class ServerResourceManagerMixin {
     @Redirect(method = "close", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ReloadableResourceManager;close()V"))
-    private void keepOpened(ReloadableResourceManager instance) {}
+    private void antiresourcereload_keepOpened(ReloadableResourceManager instance) {}
 }
