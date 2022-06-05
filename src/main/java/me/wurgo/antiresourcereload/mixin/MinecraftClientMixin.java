@@ -27,9 +27,7 @@ public abstract class MinecraftClientMixin {
 
         CompletableFuture<ServerResourceManager> reloaded = ServerResourceManager.reload(dataPacks, registrationEnvironment, i, executor, executor2);
         
-        if (dataPacks.size() == 1) {
-            this.managerProvider = reloaded;
-        }
+        if (dataPacks.size() == 1) { this.managerProvider = reloaded; }
 
         return reloaded;
     }
