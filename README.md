@@ -2,7 +2,7 @@
 Caches datapack- and server resources to make world creation faster.
 
 # Legalisation Status
-Illegal
+Legal (only 1.16 for now)
 
 # Description
 I found out about a silly thing that minecraft does which is reloading every resource when you create a world.
