@@ -15,20 +15,18 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(MinecraftServer.class)
-
 public abstract class MinecraftServerMixin {
-
     @Shadow @Final private static Logger LOGGER;
-
+    
     private static boolean register = true;
 
     @Redirect(method = "<init>", at = @At(value = "NEW", target = "net/minecraft/resource/ReloadableResourceManagerImpl"))
     private ReloadableResourceManagerImpl skipReloadingDataManager(ResourceType type, Thread mainThread) {
-        if(AntiResourceReload.dataManager != null){
+        if (AntiResourceReload.dataManager != null){
             LOGGER.info("Using cached server resources.");
             register = false;
             return AntiResourceReload.dataManager;
-        }else {
+        } else {
             LOGGER.info("Cached resources unavailable, reloading.");
             register = true;
             return (AntiResourceReload.dataManager = new ReloadableResourceManagerImpl(type, mainThread));
@@ -69,7 +67,7 @@ public abstract class MinecraftServerMixin {
 
     @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ReloadableResourceManager;registerListener(Lnet/minecraft/resource/ResourceReloadListener;)V"))
     private void register(ReloadableResourceManager instance, ResourceReloadListener resourceReloadListener){
-        if(register){
+        if (register){
             instance.registerListener(resourceReloadListener);
         }
     }
