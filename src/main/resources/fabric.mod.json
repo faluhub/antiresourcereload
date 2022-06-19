@@ -5,26 +5,19 @@
   "name": "AntiResourceReload",
   "description": "Disables the monitored reload upon world creation.",
   "authors": [
-    "Wurgo"
+    "Wurgo",
+    "KingContaria (1.14/1.15 port)"
   ],
   "contact": {
     "homepage": "https://github.com/wurgo"
   },
   "license": "MIT",
-  "icon": "assets/antiresourcereload/icon.png",
   "environment": "*",
-  "mixins": [
-    "antiresourcereload.mixins.json"
-  ],
-  "entrypoints": {
-    "main": [
-      "me.wurgo.antiresourcereload.AntiResourceReload"
-    ]
-  },
+  "mixins": ["antiresourcereload.mixins.json"],
   "depends": {
-    "minecraft": "1.16.1"
+    "minecraft": "1.15.x"
   },
   "breaks": {
-    "speedrunigt": "<7.2"
+    "speedrunigt": "<10.0"
   }
 }
