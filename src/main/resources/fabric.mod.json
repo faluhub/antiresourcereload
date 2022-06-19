@@ -15,7 +15,7 @@
   "environment": "*",
   "mixins": ["antiresourcereload.mixins.json"],
   "depends": {
-    "minecraft": "1.15.x"
+    "minecraft": "1.14.x"
   },
   "breaks": {
     "speedrunigt": "<10.0"
