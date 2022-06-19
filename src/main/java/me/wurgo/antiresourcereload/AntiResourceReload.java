@@ -1,19 +1,22 @@
 package me.wurgo.antiresourcereload;
 
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.minecraft.loot.LootManager;
+import net.minecraft.loot.condition.LootConditionManager;
+import net.minecraft.recipe.RecipeManager;
+import net.minecraft.resource.ReloadableResourceManagerImpl;
+import net.minecraft.server.ServerAdvancementLoader;
+import net.minecraft.server.function.CommandFunctionManager;
+import net.minecraft.tag.RegistryTagManager;
 
-public class AntiResourceReload implements ModInitializer {
-    private static final Logger LOGGER = LogManager.getLogger(FabricLoader.getInstance().getModContainer("antiresourcereload").get().getMetadata().getName());
+public class AntiResourceReload {
 
-    public static void log(String message) {
-        LOGGER.info("[AntiResourceReload] " + message);
-    }
+    public static ReloadableResourceManagerImpl dataManager;
+    //public static ResourcePackManager<ResourcePackProfile> dataPackManager;
+    public static RecipeManager recipeManager;
+    public static RegistryTagManager tagManager;
+    public static LootConditionManager predicateManager;
+    public static LootManager lootManager;
+    public static ServerAdvancementLoader advancementLoader;
+    public static CommandFunctionManager commandFunctionManager;
 
-    @Override
-    public void onInitialize() {
-        log("Initializing.");
-    }
 }
