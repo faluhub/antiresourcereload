@@ -2,7 +2,6 @@ package me.wurgo.antiresourcereload.mixin;
 
 import me.wurgo.antiresourcereload.AntiResourceReload;
 import net.minecraft.loot.LootManager;
-import net.minecraft.loot.condition.LootConditionManager;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.resource.*;
 import net.minecraft.server.MinecraftServer;
@@ -53,14 +52,9 @@ public abstract class MinecraftServerMixin {
         return AntiResourceReload.tagManager == null ? (AntiResourceReload.tagManager = new RegistryTagManager()) : AntiResourceReload.tagManager;
     }
 
-    @Redirect(method = "<init>", at = @At(value = "NEW", target = "net/minecraft/loot/condition/LootConditionManager"))
-    private LootConditionManager skipReloadingLootConditionManager() {
-        return AntiResourceReload.predicateManager == null ? (AntiResourceReload.predicateManager = new LootConditionManager()) : AntiResourceReload.predicateManager;
-    }
-
     @Redirect(method = "<init>", at = @At(value = "NEW", target = "net/minecraft/loot/LootManager"))
-    private LootManager skipReloadingLootManager(LootConditionManager conditionManager) {
-        return AntiResourceReload.lootManager == null ? (AntiResourceReload.lootManager = new LootManager(conditionManager)) : AntiResourceReload.lootManager;
+    private LootManager skipReloadingLootManager() {
+        return AntiResourceReload.lootManager == null ? (AntiResourceReload.lootManager = new LootManager()) : AntiResourceReload.lootManager;
     }
 
     @Redirect(method = "<init>", at = @At(value = "NEW", target = "net/minecraft/server/ServerAdvancementLoader"))
