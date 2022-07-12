@@ -28,6 +28,4 @@ public abstract class MinecraftServerMixin {
 
         return reloaded;
     }
-
-
 }
