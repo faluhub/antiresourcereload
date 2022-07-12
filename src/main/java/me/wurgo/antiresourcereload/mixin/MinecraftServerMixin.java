@@ -1,13 +1,8 @@
 package me.wurgo.antiresourcereload.mixin;
 
 import me.wurgo.antiresourcereload.AntiResourceReload;
-import net.minecraft.loot.LootManager;
-import net.minecraft.recipe.RecipeManager;
 import net.minecraft.resource.*;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.ServerAdvancementLoader;
-import net.minecraft.server.function.CommandFunctionManager;
-import net.minecraft.tag.RegistryTagManager;
 import net.minecraft.util.Unit;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
