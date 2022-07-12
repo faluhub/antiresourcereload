@@ -12,12 +12,17 @@
     "homepage": "https://github.com/wurgo"
   },
   "license": "MIT",
-  "environment": "*",
+  "environment": "client",
   "mixins": ["antiresourcereload.mixins.json"],
+  "entrypoints": {
+    "main": [
+      "me.wurgo.antiresourcereload.AntiResourceReload"
+    ]
+  },
   "depends": {
-    "minecraft": "1.14.x"
+    "minecraft": "1.14.4"
   },
   "breaks": {
-    "speedrunigt": "<10.0"
+    "speedrunigt": "<7.2"
   }
 }
