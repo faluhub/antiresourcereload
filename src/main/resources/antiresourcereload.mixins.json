@@ -5,7 +5,9 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "MinecraftClientMixin",
-    "ServerResourceManagerMixin"
+    "ServerResourceManagerMixin",
+    "RecipeManagerMixin",
+    "RecipeManagerAccess"
   ],
   "injectors": {
     "defaultRequire": 1

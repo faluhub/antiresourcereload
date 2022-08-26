@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 
 @Mixin(MinecraftClient.class)
@@ -23,6 +24,7 @@ public abstract class MinecraftClientMixin {
         else if (this.managerProvider == null) { AntiResourceReload.log("Cached resources unavailable, reloading & caching."); }
         else {
             AntiResourceReload.log("Using cached server resources.");
+            ((RecipeManagerAccess)this.managerProvider.get().getRecipeManager()).invokeApply(AntiResourceReload.recipes, null, null);
             return this.managerProvider;
         }
 
