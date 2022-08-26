@@ -19,7 +19,7 @@ public abstract class MinecraftClientMixin {
     private CompletableFuture<ServerResourceManager> managerProvider;
 
     @Redirect(method = "createIntegratedResourceManager", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ServerResourceManager;reload(Ljava/util/List;Lnet/minecraft/util/registry/DynamicRegistryManager;Lnet/minecraft/server/command/CommandManager$RegistrationEnvironment;ILjava/util/concurrent/Executor;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"))
-    private CompletableFuture<ServerResourceManager> antiresourcereload_cachedReload(List<ResourcePack> dataPacks, DynamicRegistryManager registryManager, CommandManager.RegistrationEnvironment registrationEnvironment, int i, Executor executor, Executor executor2) throws ExecutionException, InterruptedException {
+    private CompletableFuture<ServerResourceManager> antiresourcereload_cachedReload(List<ResourcePack> dataPacks, DynamicRegistryManager registryManager, CommandManager.RegistrationEnvironment registrationEnvironment, int i, Executor executor, Executor executor2) {
         if (dataPacks.size() != 1) { AntiResourceReload.log("Using data-packs, reloading."); }
         else if (this.managerProvider == null) { AntiResourceReload.log("Cached resources unavailable, reloading & caching."); }
         else {
