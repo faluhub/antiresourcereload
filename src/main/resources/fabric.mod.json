@@ -5,7 +5,8 @@
   "name": "AntiResourceReload",
   "description": "Disables the monitored reload upon world creation.",
   "authors": [
-    "Wurgo"
+    "Wurgo",
+    "pixfumy"
   ],
   "contact": {
     "homepage": "https://github.com/wurgo"
