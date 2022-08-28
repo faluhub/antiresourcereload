@@ -1,18 +1,14 @@
 package me.wurgo.antiresourcereload.mixin;
 
-import com.google.gson.JsonElement;
 import me.wurgo.antiresourcereload.AntiResourceReload;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.recipe.RecipeManager;
 import net.minecraft.resource.*;
 import net.minecraft.server.command.CommandManager;
-import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -27,7 +23,10 @@ public abstract class MinecraftClientMixin {
         else if (this.managerProvider == null) { AntiResourceReload.log("Cached resources unavailable, reloading & caching."); }
         else {
             AntiResourceReload.log("Using cached server resources.");
-            ((RecipeManagerAccess)this.managerProvider.get().getRecipeManager()).invokeApply(AntiResourceReload.recipes, null, null);
+            if(AntiResourceReload.hasSeenRecipes){
+                ((RecipeManagerAccess)this.managerProvider.get().getRecipeManager()).invokeApply(AntiResourceReload.recipes, null, null);
+            }
+            AntiResourceReload.hasSeenRecipes=false;
             return this.managerProvider;
         }
 
