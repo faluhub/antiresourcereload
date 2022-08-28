@@ -20,6 +20,7 @@ public class AntiResourceReload implements ModInitializer {
     }
 
     public static Map<Identifier, JsonElement> recipes;
+    public static boolean hasSeenRecipes;
 
     @Override
     public void onInitialize() {
