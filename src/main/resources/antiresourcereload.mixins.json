@@ -7,7 +7,8 @@
     "MinecraftClientMixin",
     "ServerResourceManagerMixin",
     "RecipeManagerMixin",
-    "RecipeManagerAccess"
+    "RecipeManagerAccess",
+    "RecipeBookWidgetMixin"
   ],
   "injectors": {
     "defaultRequire": 1

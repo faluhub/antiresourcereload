@@ -16,6 +16,7 @@ public class AntiResourceReload implements ModInitializer {
         LOGGER.info("[AntiResourceReload] " + message);
     }
     public static Map<Identifier, JsonElement> recipes;
+    public static boolean hasSeenRecipes;
 
     @Override
     public void onInitialize() {
