@@ -13,7 +13,12 @@ import java.util.concurrent.Executor;
 
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin {
-    @Redirect(method = "reloadDataPacks", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ReloadableResourceManager;beginReload(Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;Ljava/util/List;Ljava/util/concurrent/CompletableFuture;)Ljava/util/concurrent/CompletableFuture;"))
+    @Redirect(
+            method = "reloadDataPacks",
+            at = @At(
+                    value = "INVOKE", target = "Lnet/minecraft/resource/ReloadableResourceManager;beginReload(Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;Ljava/util/List;Ljava/util/concurrent/CompletableFuture;)Ljava/util/concurrent/CompletableFuture;"
+            )
+    )
     private CompletableFuture<Unit> antiresourcereload_cachedReload(ReloadableResourceManager instance, Executor executor, Executor executor2, List<ResourcePack> dataPacks, CompletableFuture<Unit> unitCompletableFuture) {
         if (dataPacks.size() != 1) { AntiResourceReload.log("Using data-packs, reloading."); }
         else if (AntiResourceReload.managerProvider == null) { AntiResourceReload.log("Cached resources unavailable, reloading & caching."); }

@@ -5,8 +5,14 @@
   "name": "AntiResourceReload",
   "description": "Disables the monitored reload upon world creation.",
   "authors": [
-    "Wurgo",
-    "KingContaria (1.14/1.15 port)"
+    "Wurgo"
+  ],
+  "contributors": [
+    "Pixfumy",
+    "KingContaria",
+    "Ronkzinho",
+    "jan-leila",
+    "VoidXWalker"
   ],
   "contact": {
     "homepage": "https://github.com/wurgo"

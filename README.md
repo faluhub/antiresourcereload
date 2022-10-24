@@ -1,3 +1,5 @@
+## ARR FOR THIS MC VERSION DOESN'T WORK YET!!
+
 # antiresourcereload
 Caches datapack- and server resources to make world creation faster.
 

@@ -9,11 +9,12 @@ import org.apache.logging.log4j.Logger;
 import java.util.concurrent.CompletableFuture;
 
 public class AntiResourceReload implements ModInitializer {
-    public static CompletableFuture<Unit> managerProvider;
     private static final Logger LOGGER = LogManager.getLogger(FabricLoader.getInstance().getModContainer("antiresourcereload").get().getMetadata().getName());
 
+    public static CompletableFuture<Unit> managerProvider;
+
     public static void log(String message) {
-        LOGGER.info("[AntiResourceReload] " + message);
+        LOGGER.info("[" + LOGGER.getName() + "] " + message);
     }
 
     @Override
