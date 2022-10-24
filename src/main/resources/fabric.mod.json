@@ -12,7 +12,6 @@
     "homepage": "https://github.com/wurgo"
   },
   "license": "MIT",
-  "icon": "assets/antiresourcereload/icon.png",
   "environment": "*",
   "mixins": [
     "antiresourcereload.mixins.json"
@@ -23,7 +22,7 @@
     ]
   },
   "depends": {
-    "minecraft": "1.16.5"
+    "minecraft": ">=1.16.2 <=1.16.5"
   },
   "breaks": {
     "speedrunigt": "<7.2"

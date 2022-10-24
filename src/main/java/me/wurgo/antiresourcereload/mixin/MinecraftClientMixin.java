@@ -15,24 +15,23 @@ import java.util.concurrent.Executor;
 
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
-    private CompletableFuture<ServerResourceManager> managerProvider;
 
     @Redirect(method = "method_29604", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ServerResourceManager;reload(Ljava/util/List;Lnet/minecraft/server/command/CommandManager$RegistrationEnvironment;ILjava/util/concurrent/Executor;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"))
     private CompletableFuture<ServerResourceManager> antiresourcereload_cachedReload(List<ResourcePack> dataPacks, CommandManager.RegistrationEnvironment registrationEnvironment, int i, Executor executor, Executor executor2) throws ExecutionException, InterruptedException {
         if (dataPacks.size() != 1) { AntiResourceReload.log("Using data-packs, reloading."); }
-        else if (this.managerProvider == null) { AntiResourceReload.log("Cached resources unavailable, reloading & caching."); }
+        else if (AntiResourceReload.cache == null) { AntiResourceReload.log("Cached resources unavailable, reloading & caching."); }
         else {
             AntiResourceReload.log("Using cached server resources.");
             if(AntiResourceReload.hasSeenRecipes){
-                ((RecipeManagerAccess)this.managerProvider.get().getRecipeManager()).invokeApply(AntiResourceReload.recipes, null, null);
+                ((RecipeManagerAccess) AntiResourceReload.cache.get().getRecipeManager()).invokeApply(AntiResourceReload.recipes, null, null);
             }
             AntiResourceReload.hasSeenRecipes=false;
-            return this.managerProvider;
+            return AntiResourceReload.cache;
         }
 
         CompletableFuture<ServerResourceManager> reloaded = ServerResourceManager.reload(dataPacks, registrationEnvironment, i, executor, executor2);
         
-        if (dataPacks.size() == 1) { this.managerProvider = reloaded; }
+        if (dataPacks.size() == 1) { AntiResourceReload.cache = reloaded; }
 
         return reloaded;
     }
