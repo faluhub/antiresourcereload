@@ -12,6 +12,5 @@ import java.util.Map;
 
 @Mixin(RecipeManager.class)
 public interface RecipeManagerAccess {
-    @Invoker
-    void invokeApply(Map<Identifier, JsonElement> map, ResourceManager resourceManager, Profiler profiler);
+    @Invoker void invokeApply(Map<Identifier, JsonElement> map, ResourceManager resourceManager, Profiler profiler);
 }

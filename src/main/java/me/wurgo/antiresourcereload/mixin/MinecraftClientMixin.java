@@ -15,17 +15,22 @@ import java.util.concurrent.Executor;
 
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
-
-    @Redirect(method = "method_29604", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ServerResourceManager;reload(Ljava/util/List;Lnet/minecraft/server/command/CommandManager$RegistrationEnvironment;ILjava/util/concurrent/Executor;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"))
+    @Redirect(
+            method = "method_29604",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/resource/ServerResourceManager;reload(Ljava/util/List;Lnet/minecraft/server/command/CommandManager$RegistrationEnvironment;ILjava/util/concurrent/Executor;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"
+            )
+    )
     private CompletableFuture<ServerResourceManager> antiresourcereload_cachedReload(List<ResourcePack> dataPacks, CommandManager.RegistrationEnvironment registrationEnvironment, int i, Executor executor, Executor executor2) throws ExecutionException, InterruptedException {
         if (dataPacks.size() != 1) { AntiResourceReload.log("Using data-packs, reloading."); }
         else if (AntiResourceReload.cache == null) { AntiResourceReload.log("Cached resources unavailable, reloading & caching."); }
         else {
             AntiResourceReload.log("Using cached server resources.");
-            if(AntiResourceReload.hasSeenRecipes){
+            if (AntiResourceReload.hasSeenRecipes) {
                 ((RecipeManagerAccess) AntiResourceReload.cache.get().getRecipeManager()).invokeApply(AntiResourceReload.recipes, null, null);
             }
-            AntiResourceReload.hasSeenRecipes=false;
+            AntiResourceReload.hasSeenRecipes = false;
             return AntiResourceReload.cache;
         }
 

@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 public abstract class ServerResourceManagerMixin {
     @Redirect(method = "close", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ReloadableResourceManager;close()V"))
     private void antiresourcereload_keepOpened(ReloadableResourceManager instance) throws ExecutionException, InterruptedException {
-        //noinspection ConstantConditions - I think mixin is confusing for intellij here
+        // noinspection ConstantConditions - I think mixin is confusing for intellij here
         if (AntiResourceReload.cache == null || (Object) this != AntiResourceReload.cache.get()) {
             instance.close();
         }
