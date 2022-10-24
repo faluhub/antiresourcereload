@@ -15,7 +15,7 @@ public class AntiResourceReload implements ModInitializer {
     private static final Logger LOGGER = LogManager.getLogger(FabricLoader.getInstance().getModContainer("antiresourcereload").get().getMetadata().getName());
 
     public static void log(String message) {
-        LOGGER.info("[AntiResourceReload] " + message);
+        LOGGER.info("[" + LOGGER.getName() + "] " + message);
     }
 
     public static CompletableFuture<ServerResourceManager> cache;
