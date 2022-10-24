@@ -17,6 +17,8 @@ import java.util.Map;
 public class RecipeManagerMixin {
     @Inject(method = "apply(Ljava/util/Map;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V", at = @At("HEAD"))
     private void setRecipes(Map<Identifier, JsonElement> map, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci) {
-        AntiResourceReload.recipes = map;
+        if (AntiResourceReload.cache != null && !AntiResourceReload.cache.isDone()) {
+            AntiResourceReload.recipes = map;
+        }
     }
 }
