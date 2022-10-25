@@ -8,6 +8,7 @@
     "RecipeBookWidgetMixin",
     "RecipeManagerAccess",
     "RecipeManagerMixin",
+    "ResourceManagerHolderMixin",
     "SaveLoadingMixin"
   ],
   "injectors": {
