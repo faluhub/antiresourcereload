@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version "1.0-SNAPSHOT" // To use chocoloom, change the version to a commit hash
+	id 'fabric-loom' version '1.0-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -7,7 +7,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = project.archives_base_name
-version = project.mod_version
+version = "${project.mod_version}+${project.minecraft_version}"
 group = project.maven_group
 
 repositories {
@@ -24,16 +24,6 @@ repositories {
 
 loom {
 	setIntermediaryUrl('https://maven.legacyfabric.net/net/legacyfabric/intermediary/%1$s/intermediary-%1$s-v2.jar');
-	
-	// Only needed for versions not available from vanilla launcher by default.
-	// customMinecraftManifest.set("https://meta.legacyfabric.net/v2/manifest/${minecraft_version}")
-
-	// Required by 1.7.x
-	// runs {
-	// 	client {
-	// 		programArgs "--userProperties", "{}"
-	// 	}
-	// }
 }
 
 def lwjgl2 = !project.minecraft_version.startsWith("1.13")
