@@ -11,7 +11,6 @@ import java.util.concurrent.ExecutionException;
 
 @Mixin(DataPackContents.class)
 public class DataPackContentsMixin {
-
     private boolean refreshed;
 
     @Inject(method = "refresh", at = @At("HEAD"), cancellable = true)
@@ -20,7 +19,6 @@ public class DataPackContentsMixin {
         if ((Object) this == AntiResourceReload.cache.get() && refreshed) {
             ci.cancel();
         }
-        refreshed = true;
+        this.refreshed = true;
     }
-
 }
