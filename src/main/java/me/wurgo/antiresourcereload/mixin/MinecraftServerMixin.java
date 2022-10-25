@@ -18,36 +18,28 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin {
+    @Shadow protected abstract void method_20314(LevelProperties levelProperties);
+    @Mutable @Shadow @Final private ReloadableResourceManager field_21597;
+    @Mutable @Shadow @Final private class_4488 field_21602;
+    @Mutable @Shadow @Final private RecipeDispatcher field_21601;
+    @Mutable @Shadow @Final private class_2787 field_21605;
+    @Mutable @Shadow @Final private FunctionTickable field_21607;
+    @Mutable @Shadow @Final private class_3348 field_21606;
 
-    @Shadow
-    protected abstract void method_20314(LevelProperties levelProperties);
-
-    @Mutable
-    @Shadow @Final
-    private ReloadableResourceManager field_21597;
-
-    @Mutable
-    @Shadow @Final private class_4488 field_21602;
-
-    @Mutable
-    @Shadow @Final private RecipeDispatcher field_21601;
-
-    @Mutable
-    @Shadow @Final private class_2787 field_21605;
-
-    @Mutable
-    @Shadow @Final private FunctionTickable field_21607;
-
-    @Mutable
-    @Shadow @Final private class_3348 field_21606;
-
-    @Redirect(method = "method_20319", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;method_20314(Lnet/minecraft/world/level/LevelProperties;)V"))
+    @Redirect(
+            method = "method_20319",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/server/MinecraftServer;method_20314(Lnet/minecraft/world/level/LevelProperties;)V"
+            )
+    )
     private void antiresourcereload_cachedReload(MinecraftServer instance, LevelProperties levelProperties) {
         if (levelProperties.method_17951().size() + levelProperties.method_17952().size() != 0) {
             AntiResourceReload.log("Using data-packs, reloading.");
             this.method_20314(levelProperties);
             return;
         }
+        
         if (AntiResourceReload.dataManager == null) {
             AntiResourceReload.log("Cached resources unavailable, reloading & caching.");
             AntiResourceReload.dataManager = this.field_21597;
