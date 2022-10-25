@@ -12,10 +12,8 @@
     "homepage": "https://github.com/wurgo"
   },
   "license": "MIT",
-  "environment": "*",
-  "mixins": [
-    "antiresourcereload.mixins.json"
-  ],
+  "environment": "client",
+  "mixins": ["antiresourcereload.mixins.json"],
   "entrypoints": {
     "main": [
       "me.wurgo.antiresourcereload.AntiResourceReload"
