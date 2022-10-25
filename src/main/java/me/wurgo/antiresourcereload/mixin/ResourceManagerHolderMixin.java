@@ -14,10 +14,15 @@ import java.util.concurrent.ExecutionException;
 
 @Mixin(MinecraftServer.ResourceManagerHolder.class)
 public class ResourceManagerHolderMixin {
-
     @Shadow @Final DataPackContents dataPackContents;
 
-    @Redirect(method = "close", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/LifecycledResourceManager;close()V"))
+    @Redirect(
+            method = "close",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/resource/LifecycledResourceManager;close()V"
+            )
+    )
     private void antiresourcereload_keepOpened(LifecycledResourceManager instance) throws ExecutionException, InterruptedException {
         if (AntiResourceReload.cache == null || this.dataPackContents != AntiResourceReload.cache.get()) {
             instance.close();
