@@ -23,7 +23,7 @@ public class SaveLoaderMixin {
                     target = "Lnet/minecraft/server/DataPackContents;reload(Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/registry/DynamicRegistryManager$Immutable;Lnet/minecraft/server/command/CommandManager$RegistrationEnvironment;ILjava/util/concurrent/Executor;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"
             )
     )
-    private static CompletableFuture<DataPackContents> test(ResourceManager manager, DynamicRegistryManager.Immutable dynamicRegistryManager, CommandManager.RegistrationEnvironment commandEnvironment, int functionPermissionLevel, Executor prepareExecutor, Executor applyExecutor, SaveLoader.FunctionLoaderConfig functionLoaderConfig, SaveLoader.DataPackSettingsSupplier dataPackSettingsSupplier) throws ExecutionException, InterruptedException {
+    private static CompletableFuture<DataPackContents> antiresourcereload_cachedReload(ResourceManager manager, DynamicRegistryManager.Immutable dynamicRegistryManager, CommandManager.RegistrationEnvironment commandEnvironment, int functionPermissionLevel, Executor prepareExecutor, Executor applyExecutor, SaveLoader.FunctionLoaderConfig functionLoaderConfig, SaveLoader.DataPackSettingsSupplier dataPackSettingsSupplier) throws ExecutionException, InterruptedException {
         int dataPacks = dataPackSettingsSupplier.get().getEnabled().size() + dataPackSettingsSupplier.get().getDisabled().size();
         if (dataPacks != 1) { AntiResourceReload.log("Using data-packs, reloading."); }
         else if (AntiResourceReload.cache == null) { AntiResourceReload.log("Cached resources unavailable, reloading & caching."); }
