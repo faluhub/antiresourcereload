@@ -3,7 +3,7 @@ package me.wurgo.antiresourcereload;
 import com.google.gson.JsonElement;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.resource.ServerResourceManager;
+import net.minecraft.server.DataPackContents;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +18,7 @@ public class AntiResourceReload implements ModInitializer {
         LOGGER.info("[" + LOGGER.getName() + "] " + message);
     }
 
-    public static CompletableFuture<ServerResourceManager> cache;
+    public static CompletableFuture<DataPackContents> cache;
     public static Map<Identifier, JsonElement> recipes;
     public static boolean hasSeenRecipes;
 

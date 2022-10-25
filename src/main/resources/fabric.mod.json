@@ -27,8 +27,9 @@
       "me.wurgo.antiresourcereload.AntiResourceReload"
     ]
   },
+  "accessWidener": "antiresourcereload.accesswidener",
   "depends": {
-    "minecraft": ">=1.17 <=1.18.1"
+    "minecraft": "1.18.2"
   },
   "breaks": {
     "speedrunigt": "<7.2"
