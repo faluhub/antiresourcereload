@@ -17,17 +17,23 @@ import java.util.concurrent.Executor;
 @Mixin(SaveLoading.class)
 public class SaveLoadingMixin {
 
-    @Redirect(method = "load", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/DataPackContents;reload(Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/registry/DynamicRegistryManager$Immutable;Lnet/minecraft/server/command/CommandManager$RegistrationEnvironment;ILjava/util/concurrent/Executor;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"))
+    @Redirect(
+            method = "load",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/server/DataPackContents;reload(Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/registry/DynamicRegistryManager$Immutable;Lnet/minecraft/server/command/CommandManager$RegistrationEnvironment;ILjava/util/concurrent/Executor;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"
+            )
+    )
     private static CompletableFuture<DataPackContents> test(ResourceManager manager, DynamicRegistryManager.Immutable dynamicRegistryManager, CommandManager.RegistrationEnvironment commandEnvironment, int functionPermissionLevel, Executor prepareExecutor, Executor applyExecutor, SaveLoading.ServerConfig serverConfig) throws ExecutionException, InterruptedException {
         int dataPacks = serverConfig.dataPacks().settings().getEnabled().size() + serverConfig.dataPacks().settings().getDisabled().size();
         if (dataPacks != 1) { AntiResourceReload.log("Using data-packs, reloading."); }
         else if (AntiResourceReload.cache == null) { AntiResourceReload.log("Cached resources unavailable, reloading & caching."); }
         else {
             AntiResourceReload.log("Using cached server resources.");
-            if(AntiResourceReload.hasSeenRecipes){
+            if (AntiResourceReload.hasSeenRecipes) {
                 ((RecipeManagerAccess) AntiResourceReload.cache.get().getRecipeManager()).invokeApply(AntiResourceReload.recipes, null, null);
             }
-            AntiResourceReload.hasSeenRecipes=false;
+            AntiResourceReload.hasSeenRecipes = false;
             return AntiResourceReload.cache;
         }
 
