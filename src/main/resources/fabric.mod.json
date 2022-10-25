@@ -26,7 +26,7 @@
     ]
   },
   "depends": {
-    "minecraft": "1.14.x"
+    "minecraft": "1.13.2"
   },
   "breaks": {
     "speedrunigt": "<7.2"
