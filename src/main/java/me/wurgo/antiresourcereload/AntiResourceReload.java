@@ -14,13 +14,13 @@ import java.util.concurrent.CompletableFuture;
 public class AntiResourceReload implements ModInitializer {
     private static final Logger LOGGER = LogManager.getLogger(FabricLoader.getInstance().getModContainer("antiresourcereload").get().getMetadata().getName());
 
-    public static void log(String message) {
-        LOGGER.info("[" + LOGGER.getName() + "] " + message);
-    }
-
     public static CompletableFuture<DataPackContents> cache;
     public static Map<Identifier, JsonElement> recipes;
     public static boolean hasSeenRecipes;
+    
+    public static void log(String message) {
+        LOGGER.info("[" + LOGGER.getName() + "] " + message);
+    }
 
     @Override
     public void onInitialize() {
