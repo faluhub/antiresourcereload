@@ -18,16 +18,14 @@
     "homepage": "https://github.com/wurgo"
   },
   "license": "MIT",
-  "environment": "*",
-  "mixins": [
-    "antiresourcereload.mixins.json"
-  ],
+  "environment": "client",
+  "accessWidener": "antiresourcereload.accesswidener",
+  "mixins": ["antiresourcereload.mixins.json"],
   "entrypoints": {
     "main": [
       "me.wurgo.antiresourcereload.AntiResourceReload"
     ]
   },
-  "accessWidener": "antiresourcereload.accesswidener",
   "depends": {
     "minecraft": "1.18.2"
   },
