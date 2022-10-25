@@ -3,8 +3,11 @@
   "minVersion": "0.8",
   "package": "me.wurgo.antiresourcereload.mixin",
   "compatibilityLevel": "JAVA_8",
-  "mixins": [
-    "MinecraftServerMixin"
+  "client": [
+    "MinecraftServerMixin",
+    "RecipeBookWidgetMixin",
+    "RecipeManagerAccess",
+    "RecipeManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
