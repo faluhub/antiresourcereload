@@ -18,36 +18,28 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin {
+    @Shadow protected abstract void reloadDataPacks(LevelProperties levelProperties);
+    @Mutable @Shadow @Final private ReloadableResourceManager dataManager;
+    @Mutable @Shadow @Final private RegistryTagManager tagManager;
+    @Mutable @Shadow @Final private RecipeManager recipeManager;
+    @Mutable @Shadow @Final private LootManager lootManager;
+    @Mutable @Shadow @Final private CommandFunctionManager commandFunctionManager;
+    @Mutable @Shadow @Final private ServerAdvancementLoader advancementManager;
 
-    @Shadow
-    protected abstract void reloadDataPacks(LevelProperties levelProperties);
-
-    @Mutable
-    @Shadow @Final
-    private ReloadableResourceManager dataManager;
-
-    @Mutable
-    @Shadow @Final private RegistryTagManager tagManager;
-
-    @Mutable
-    @Shadow @Final private RecipeManager recipeManager;
-
-    @Mutable
-    @Shadow @Final private LootManager lootManager;
-
-    @Mutable
-    @Shadow @Final private CommandFunctionManager commandFunctionManager;
-
-    @Mutable
-    @Shadow @Final private ServerAdvancementLoader advancementManager;
-
-    @Redirect(method = "loadWorldDataPacks", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;reloadDataPacks(Lnet/minecraft/world/level/LevelProperties;)V"))
+    @Redirect(
+            method = "loadWorldDataPacks",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/server/MinecraftServer;reloadDataPacks(Lnet/minecraft/world/level/LevelProperties;)V"
+            )
+    )
     private void antiresourcereload_cachedReload(MinecraftServer instance, LevelProperties levelProperties) {
         if (levelProperties.getEnabledDataPacks().size() + levelProperties.getDisabledDataPacks().size() != 0) {
             AntiResourceReload.log("Using data-packs, reloading.");
             this.reloadDataPacks(levelProperties);
             return;
         }
+        
         if (AntiResourceReload.dataManager == null) {
             AntiResourceReload.log("Cached resources unavailable, reloading & caching.");
             AntiResourceReload.dataManager = this.dataManager;
