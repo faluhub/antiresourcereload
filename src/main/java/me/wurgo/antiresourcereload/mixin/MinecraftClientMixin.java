@@ -2,7 +2,8 @@ package me.wurgo.antiresourcereload.mixin;
 
 import me.wurgo.antiresourcereload.AntiResourceReload;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.resource.*;
+import net.minecraft.resource.ResourcePack;
+import net.minecraft.resource.ServerResourceManager;
 import net.minecraft.server.command.CommandManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,7 +15,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 
 @Mixin(MinecraftClient.class)
-public abstract class MinecraftClientMixin {
+public class MinecraftClientMixin {
+    private boolean hasLoadedTags;
+
     @Redirect(
             method = "method_29604",
             at = @At(
@@ -39,5 +42,20 @@ public abstract class MinecraftClientMixin {
         if (dataPacks.size() == 1) { AntiResourceReload.cache = reloaded; }
 
         return reloaded;
+    }
+
+    @Redirect(
+            method = "startIntegratedServer(Ljava/lang/String;Lnet/minecraft/util/registry/RegistryTracker$Modifiable;Ljava/util/function/Function;Lcom/mojang/datafixers/util/Function4;ZLnet/minecraft/client/MinecraftClient$WorldLoadAction;)V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/resource/ServerResourceManager;loadRegistryTags()V"
+            )
+    )
+    private void antiresourcereload_skipLoad(ServerResourceManager manager) throws ExecutionException, InterruptedException {
+        if (manager == AntiResourceReload.cache.get()) {
+            if (hasLoadedTags) return;
+            hasLoadedTags = true;
+        }
+        manager.loadRegistryTags();
     }
 }
