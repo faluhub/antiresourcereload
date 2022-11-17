@@ -16,6 +16,7 @@ import java.util.concurrent.Executor;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
+    private boolean hasLoadedTags;
 
     @Redirect(
             method = "method_29604",
@@ -43,9 +44,13 @@ public class MinecraftClientMixin {
         return reloaded;
     }
 
-    private boolean hasLoadedTags;
-
-    @Redirect(method = "startIntegratedServer(Ljava/lang/String;Lnet/minecraft/util/registry/RegistryTracker$Modifiable;Ljava/util/function/Function;Lcom/mojang/datafixers/util/Function4;ZLnet/minecraft/client/MinecraftClient$WorldLoadAction;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ServerResourceManager;loadRegistryTags()V"))
+    @Redirect(
+            method = "startIntegratedServer(Ljava/lang/String;Lnet/minecraft/util/registry/RegistryTracker$Modifiable;Ljava/util/function/Function;Lcom/mojang/datafixers/util/Function4;ZLnet/minecraft/client/MinecraftClient$WorldLoadAction;)V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/resource/ServerResourceManager;loadRegistryTags()V"
+            )
+    )
     private void antiresourcereload_skipLoad(ServerResourceManager manager) throws ExecutionException, InterruptedException {
         if (manager == AntiResourceReload.cache.get()) {
             if (hasLoadedTags) return;
